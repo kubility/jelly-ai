@@ -1,0 +1,18 @@
+package com.jelly.jellyai.entity;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+public class ChatEntity implements Serializable {
+    @Schema(name = "msg",title = "msg", description = "消息",example = "你好")
+    private String msg;
+
+    @Schema(name = "webSearch", title = "webSearch", description = "是否启用网络搜索", example = "true")
+    private Boolean webSearch = false;
+
+    @Schema(name = "responseType", title = "responseType", description = "请求类型", example = "1")
+    private String responseType;
+}

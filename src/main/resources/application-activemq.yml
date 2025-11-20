@@ -1,0 +1,11 @@
+spring:
+  activemq:
+    broker-url: tcp://101.43.156.43:30226
+    user: admin
+    password: admin
+    queue: jelly.queue
+    topic: jelly.topic
+    queue_ack: jelly.queue.ack
+    retry:
+      max-attempts: 3
+      initial-delay: 1000

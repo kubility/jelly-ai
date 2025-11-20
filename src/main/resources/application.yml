@@ -1,0 +1,61 @@
+spring:
+    application:
+        name: jelly-ai
+    ai:
+        ollama:
+            base-url: http://192.168.83.128:30254
+            chat:
+                options:
+                    model: deepseek-r1:1.5b
+        dashscope:
+            api-key: sk-88e14d3902c14090a4472f895bd07aeb
+    freemarker:
+        allow-request-override: false
+        allow-session-override: false
+        check-template-location: false
+        suffix: .ftl
+        charset: UTF-8
+        cache: false
+        content-type: text/html
+        expose-request-attributes: false
+        expose-session-attributes: false
+        template-loader-path: classpath:/templates/
+    config:
+        import:
+            - optional:classpath:application-knife4j.yml
+            - optional:classpath:application-activemq.yml
+    # 热启动配置
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
+    mvc:
+        async:
+            request-timeout: 120000
+logging:
+    level:
+        root: info
+        web: info
+        sql: info
+    file:
+        name: /logs/${spring.application.name}/jelly-ai.log
+    logback:
+        rollingpolicy:
+            file-name-pattern: /logs/${spring.application.name}/%d{yyyy-MM-dd}/${spring.application.name}.log.%d{yyyy-MM-dd}.%i.gz
+            clean-history-on-start: false
+            max-file-size: 100MB
+            total-size-cap: 10GB
+            max-history: 30
+ai:
+  websearch:
+    searxng:
+      engines: duckduckgo,google,yahoo,baidu,bing,yandex,ecosia,qwant,startpage,swisscows,searx,searxng,searxng-fqdn,searxng-fqdn-https,searxng-fqdn-https-proxy,searxng-fqdn-https-proxy-https,searxng-fqdn-https-proxy-https-tor,searxng-fqdn-https-proxy-https-tor-https,searxng-fqdn-https
+      url: http://192.168.83.128:31358/search
+      nums: 5
+      # 添加User-Agent来避免被识别为机器人
+      user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+server:
+    servlet:
+        session:
+            timeout: 30s
