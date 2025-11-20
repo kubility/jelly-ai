@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -202,8 +203,23 @@ public class ChatController {
     @GetMapping("/api/ai/models")
     @ResponseBody
     @Operation(summary = "获取Ollama模型列表")
-    public List<String> listOllamaModels() {
-        return ollamaModelService.listModels();
+    public List<String> listOllamaModels(@RequestParam(required = false) String baseUrl) {
+        if (baseUrl != null && !baseUrl.isEmpty()) {
+            // 使用指定的baseUrl获取模型列表
+            try {
+                org.springframework.ai.ollama.api.OllamaApi ollamaApi = new org.springframework.ai.ollama.api.OllamaApi(baseUrl);
+                org.springframework.ai.ollama.api.OllamaApi.ListModelResponse listModelResponse = ollamaApi.listModels();
+                return listModelResponse.models().stream()
+                        .map(org.springframework.ai.ollama.api.OllamaApi.Model::name)
+                        .toList();
+            } catch (Exception e) {
+                // 如果指定的baseUrl连接失败，使用默认的
+                return ollamaModelService.listModels();
+            }
+        } else {
+            // 使用默认的baseUrl获取模型列表
+            return ollamaModelService.listModels();
+        }
     }
 
     /**

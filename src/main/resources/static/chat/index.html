@@ -17,6 +17,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* 添加全局触摸优化 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -697,13 +699,384 @@
             color: #24292e;
             margin-right: 10px;
         }
-        
+
         @media (max-width: 768px) {
             .model-select {
                 margin-right: 0;
                 margin-bottom: 8px;
                 width: 100%;
             }
+        }
+
+        /* 设置页面样式 */
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .settings-container {
+                padding: 10px;
+                margin: 0;
+            }
+        }
+
+        .settings-container .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .settings-container .header {
+                margin-bottom: 20px;
+            }
+
+            .settings-container .header h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        .settings-container .header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .settings-container .header p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 16px;
+                border-radius: 8px;
+                margin-bottom: 15px;
+                box-shadow: none;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                margin-bottom: 16px;
+            }
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .form-group label {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            box-sizing: border-box;
+            /* 移动端优化 */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                padding: 10px 12px;
+                font-size: 1rem;
+                border-radius: 6px;
+                /* 移动端触摸优化 */
+                min-height: 44px;
+            }
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            /* 移动端焦点优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            .form-control {
+                font-size: 16px; /* 防止iOS缩放 */
+            }
+
+            .settings-action-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .settings-action-buttons .btn {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        /* 针对小屏幕的额外优化 */
+        @media (max-width: 480px) {
+            .settings-container {
+                padding: 8px;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            .form-control {
+                padding: 10px 12px;
+            }
+
+            .btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            .settings-container .header h2 {
+                font-size: 1.1rem;
+            }
+
+            .settings-container .header .btn-secondary {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+                top: 8px;
+            }
+
+            /* 超小屏幕优化 */
+            .form-group label {
+                font-size: 0.9rem;
+            }
+
+            .form-control {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 设置页面在移动端的特殊优化 */
+        @media (max-width: 768px) {
+            .settings-container .header {
+                padding: 0 10px;
+                position: relative;
+            }
+
+            .settings-container .header h2 {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+
+            /* 在设置模式下隐藏顶部控制栏 */
+            .header.settings-mode-hidden {
+                display: none;
+            }
+
+            /* 设置页面表单优化 */
+            .form-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .form-col {
+                width: 100%;
+            }
+
+            /* 设置页面按钮优化 */
+            .settings-action-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .settings-action-buttons .btn {
+                width: 100%;
+                margin-right: 0;
+                padding: 14px;
+                font-size: 1rem;
+            }
+
+
+
+            /* 移动端设置容器优化 */
+            .settings-container {
+                padding: 10px;
+            }
+
+            /* 移动端卡片优化 */
+            .card {
+                padding: 16px;
+                margin-bottom: 15px;
+            }
+
+            /* 移动端表单组优化 */
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            .form-group label {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+
+            .form-control {
+                font-size: 16px; /* 防止iOS缩放 */
+                padding: 12px;
+            }
+
+            /* 移动端下拉框优化 */
+            select.form-control {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+                background-size: 16px;
+                padding-right: 40px;
+                /* 移动端触摸优化 */
+                min-height: 44px;
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        .form-col {
+            flex: 1;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 10px;
+            min-width: 80px;
+            /* 移动端触摸优化 */
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                border-radius: 6px;
+                margin-right: 8px;
+                min-width: 70px;
+                min-height: 44px;
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #d5dbdb;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            /* 触摸优化 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .alert {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                border-radius: 6px;
+                margin-bottom: 16px;
+            }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
@@ -725,12 +1098,7 @@
                 <button class="menu-item" :class="{ active: currentMode === 'chat' }" @click="switchMode('chat')">
                     💬 聊天
                 </button>
-                <button class="menu-item" :class="{ active: currentMode === 'history' }"
-                        @click="switchMode('history')">
-                    📝 历史
-                </button>
-                <button class="menu-item" :class="{ active: currentMode === 'settings' }"
-                        @click="switchMode('settings')">
+                <button class="menu-item" @click="openSettings">
                     ⚙️ 设置
                 </button>
             </nav>
@@ -739,14 +1107,14 @@
         <!-- 主内容区 -->
         <main class="main-content">
             <!-- 顶部栏 -->
-            <header class="header">
+            <header class="header" :class="{ 'settings-mode-hidden': currentMode === 'settings' }" v-show="currentMode !== 'settings'">
                 <h1>AI Assistant</h1>
                 <div class="controls">
                     <!-- 模型选择下拉框 -->
                     <select v-model="selectedModel" @change="switchModel" class="model-select">
                         <option v-for="model in availableModels" :value="model">{{ model }}</option>
                     </select>
-                    
+
                     <div class="response-modes">
                         <button class="mode-option" :class="{ active: responseType === '5' }"
                                 @click="responseType = '5'">
@@ -775,7 +1143,7 @@
             </header>
 
             <!-- 聊天区域 -->
-            <div class="chat-container" ref="chatContainer">
+            <div class="chat-container" ref="chatContainer" v-show="currentMode === 'chat'">
                 <!-- 欢迎消息 -->
                 <div class="welcome-message" v-if="chatHistory.length === 0">
                     <h3>👋 欢迎使用 AI Assistant</h3>
@@ -832,13 +1200,110 @@
                 </div>
             </div>
 
+            <!-- 设置区域 -->
+            <div v-show="currentMode === 'settings'" style="height: 100%; overflow: auto;">
+                <div class="settings-container">
+                    <div class="header">
+                        <h2>⚙️ Ollama配置设置</h2>
+                    </div>
+
+                    <div class="card">
+                        <form @submit.prevent="saveConfig">
+                            <div class="form-group">
+                                <label for="baseUrl">Ollama服务地址</label>
+                                <input
+                                    type="text"
+                                    id="baseUrl"
+                                    class="form-control"
+                                    v-model="config.baseUrl"
+                                    placeholder="例如: http://localhost:11434"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="defaultModel">默认模型</label>
+                                <select
+                                    id="defaultModel"
+                                    class="form-control"
+                                    v-model="config.defaultModel"
+                                    required
+                                >
+                                    <option v-for="model in availableModels" :value="model">{{ model }}</option>
+                                    <option v-if="config.defaultModel && !availableModels.includes(config.defaultModel)" :value="config.defaultModel">{{ config.defaultModel }} (自定义)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="temperature">Temperature (0-1)</label>
+                                        <input
+                                            type="number"
+                                            id="temperature"
+                                            class="form-control"
+                                            v-model="config.temperature"
+                                            step="0.1"
+                                            min="0"
+                                            max="1"
+                                            placeholder="例如: 0.7"
+                                            inputmode="decimal"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="topP">Top P (0-1)</label>
+                                        <input
+                                            type="number"
+                                            id="topP"
+                                            class="form-control"
+                                            v-model="config.topP"
+                                            step="0.1"
+                                            min="0"
+                                            max="1"
+                                            placeholder="例如: 0.9"
+                                            inputmode="decimal"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="topK">Top K</label>
+                                        <input
+                                            type="number"
+                                            id="topK"
+                                            class="form-control"
+                                            v-model="config.topK"
+                                            min="0"
+                                            placeholder="例如: 40"
+                                            inputmode="numeric"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="message" :class="['alert', message.type === 'success' ? 'alert-success' : 'alert-error']">
+                                {{ message.text }}
+                            </div>
+
+                            <div class="form-group settings-action-buttons">
+                                <button type="submit" class="btn btn-primary">保存配置</button>
+                                <button type="button" class="btn btn-secondary" @click="loadLatestConfig">加载最新配置</button>
+                                <button type="button" class="btn btn-secondary" @click="refreshModels">刷新模型</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!-- 输入区域 -->
-            <div class="input-area">
+            <div class="input-area" v-show="currentMode !== 'settings'">
                 <form class="input-form" @submit.prevent="sendMessage">
                     <div class="input-wrapper">
-                            <textarea class="message-input" v-model="userInput" placeholder="输入您的问题..." rows="1"
-                                      :disabled="loading" @keydown.enter.exact.prevent="sendMessage"
-                                      @keydown.enter.shift.exact="newLine" ref="messageInput"></textarea>
+                       <textarea class="message-input" v-model="userInput" placeholder="输入您的问题..." rows="1"
+                                  :disabled="loading" @keydown.enter.prevent="sendMessage"
+                                  @keydown.shift.enter.stop.prevent="newLine" ref="messageInput"></textarea>
                     </div>
                     <button type="submit" class="send-button" :disabled="loading || !userInput">
                         发送
@@ -866,15 +1331,29 @@
                 isMobile: false,
                 // Ollama模型相关数据
                 availableModels: [],
-                selectedModel: ''
+                selectedModel: '',
+                // 设置页面数据
+                config: {
+                    baseUrl: '',
+                    defaultModel: '',
+                    temperature: null,
+                    topP: null,
+                    topK: null
+                },
+                message: null
             }
         },
         mounted() {
             this.checkMobile();
             window.addEventListener('resize', this.checkMobile);
             this.autoResizeTextarea();
-            // 初始化模型列表
-            this.loadModelList();
+            // 先加载保存的默认模型配置
+            this.loadSavedDefaultModel().then(() => {
+                // 如果没有设置默认模型，则加载模型列表
+                if (!this.selectedModel) {
+                    this.loadModelList();
+                }
+            });
         },
         beforeUnmount() {
             window.removeEventListener('resize', this.checkMobile);
@@ -1244,10 +1723,53 @@
             toggleSidebar() {
                 this.sidebarOpen = !this.sidebarOpen;
             },
-            switchMode(mode) {
+            openSettings() {
+                // 切换到设置模式，而不是跳转到新页面
+                this.switchMode('settings');
+                // 加载最新配置
+                this.loadLatestConfig();
+            },
+
+            async switchMode(mode) {
                 this.currentMode = mode;
                 if (this.isMobile) {
                     this.sidebarOpen = false;
+                }
+                // 如果切换到聊天页面，加载保存的默认模型
+                if (mode === 'chat') {
+                    await this.loadSavedDefaultModel();
+                }
+            },
+
+            // 加载保存的默认模型
+            async loadSavedDefaultModel() {
+                try {
+                    const response = await fetch('/api/ollama/config/latest');
+                    if (response.ok) {
+                        const config = await response.json();
+                        if (config.defaultModel) {
+                            this.selectedModel = config.defaultModel;
+                            // 同时更新可用模型列表
+                            await this.refreshModels();
+                            // 切换到保存的模型
+                            await this.switchModel();
+                        }
+                    }
+                } catch (error) {
+                    console.error('加载保存的默认模型出错:', error);
+                }
+            },
+
+            async refreshModels() {
+                try {
+                    const response = await fetch('/api/ai/models');
+                    if (response.ok) {
+                        this.availableModels = await response.json();
+                    } else {
+                        console.error('获取模型列表失败:', response.status);
+                    }
+                } catch (error) {
+                    console.error('加载模型列表出错:', error);
                 }
             },
             autoResizeTextarea() {
@@ -1407,8 +1929,8 @@
                     const response = await fetch('/api/ai/models');
                     if (response.ok) {
                         this.availableModels = await response.json();
-                        // 设置默认选中的模型
-                        if (this.availableModels.length > 0) {
+                        // 只有在没有设置选中模型时才设置默认选中的模型
+                        if (!this.selectedModel && this.availableModels.length > 0) {
                             this.selectedModel = this.availableModels[0];
                         }
                     } else {
@@ -1418,14 +1940,14 @@
                     console.error('加载模型列表出错:', error);
                 }
             },
-            
+
             // 切换Ollama模型
             async switchModel() {
                 try {
                     const response = await fetch(`/api/ai/model/switch?modelName=${encodeURIComponent(this.selectedModel)}`, {
                         method: 'POST'
                     });
-                    
+
                     if (response.ok) {
                         const result = await response.json();
                         console.log('模型切换成功:', result.message);
@@ -1434,6 +1956,48 @@
                     }
                 } catch (error) {
                     console.error('切换模型出错:', error);
+                }
+            },
+            // 设置页面相关方法
+            async saveConfig() {
+                try {
+                    const response = await fetch('/api/ollama/config', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(this.config)
+                    });
+
+                    if (response.ok) {
+                        this.message = {type: 'success', text: '配置保存成功'};
+                        // 重新加载模型列表
+                        await this.refreshModels();
+                        // 如果当前在聊天模式，更新选中的模型
+                        if (this.currentMode === 'chat' && this.config.defaultModel) {
+                            this.selectedModel = this.config.defaultModel;
+                            await this.switchModel();
+                        }
+                    } else {
+                        this.message = {type: 'error', text: '配置保存失败'};
+                    }
+                } catch (error) {
+                    console.error('保存配置出错:', error);
+                    this.message = {type: 'error', text: '保存配置时发生错误'};
+                }
+            },
+
+            async loadLatestConfig() {
+                try {
+                    const response = await fetch('/api/ollama/config/latest');
+                    if (response.ok) {
+                        const config = await response.json();
+                        this.config = {...this.config, ...config};
+                    } else {
+                        console.error('获取最新配置失败:', response.status);
+                    }
+                } catch (error) {
+                    console.error('加载最新配置出错:', error);
                 }
             },
         }

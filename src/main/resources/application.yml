@@ -33,6 +33,17 @@ spring:
     mvc:
         async:
             request-timeout: 120000
+    # 数据库配置
+    datasource:
+        url: jdbc:h2:file:./data/testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: 
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+        show-sql: true
 logging:
     level:
         root: info
