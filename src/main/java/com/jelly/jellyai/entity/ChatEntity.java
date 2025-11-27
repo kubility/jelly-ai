@@ -15,4 +15,11 @@ public class ChatEntity implements Serializable {
 
     @Schema(name = "responseType", title = "responseType", description = "请求类型", example = "1")
     private String responseType;
+    
+    // 添加sessionId和messageId字段以匹配前端发送的数据
+    @Schema(name = "sessionId", title = "sessionId", description = "会话ID", example = "session_123456")
+    private String sessionId;
+    
+    @Schema(name = "messageId", title = "messageId", description = "消息ID", example = "msg_123456_user")
+    private String messageId;
 }

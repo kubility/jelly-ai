@@ -17,6 +17,7 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
@@ -40,20 +41,50 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         try {
+            System.out.println("收到WebSocket消息: " + message.getPayload());
             // 解析客户端发送的消息
             String payload = message.getPayload();
             ChatEntity chatEntity = objectMapper.readValue(payload, ChatEntity.class);
+            System.out.println("解析后的ChatEntity: msg=" + chatEntity.getMsg() + ", responseType=" + chatEntity.getResponseType());
             
             // 使用当前模型的OllamaChatModel实例
             OllamaChatModel currentModel = ollamaModelService.getCurrentOllamaChatModel();
+            System.out.println("当前使用的模型: " + ollamaModelService.getCurrentModel());
             
             // 使用Ollama模型生成回答
             Flux<String> response = currentModel.stream(chatEntity.getMsg());
+            // 标记是否在思考过程中
+            AtomicBoolean inThinking = new AtomicBoolean(false);
+            AtomicBoolean thinkingStarted = new AtomicBoolean(false);
+            AtomicBoolean thinkingEnded = new AtomicBoolean(false);
+            
             response.publishOn(Schedulers.boundedElastic()).subscribe(
                     data -> {
                         try {
-                            // 使用Base64编码确保所有字符都能正确传输
-                            String encodedData = Base64.getEncoder().encodeToString(data.getBytes("UTF-8"));
+                            System.out.println("Ollama响应数据: " + data);
+                            
+                            String encodedData;
+                            // 检查是否包含思考过程开始标记
+                            if ((data.contains("思考") || data.contains("think")) && !thinkingStarted.get()) {
+                                thinkingStarted.set(true);
+                                inThinking.set(true);
+                                // 添加思考过程开始标记
+                                String thinkingData = "思考过程开始" + data;
+                                encodedData = Base64.getEncoder().encodeToString(thinkingData.getBytes("UTF-8"));
+                            } 
+                            // 检查是否包含思考过程结束标记
+                            else if (inThinking.get() && (data.contains("回答") || data.contains("answer")) && !thinkingEnded.get()) {
+                                thinkingEnded.set(true);
+                                inThinking.set(false);
+                                // 添加思考过程结束标记
+                                String thinkingData = data + "思考过程结束";
+                                encodedData = Base64.getEncoder().encodeToString(thinkingData.getBytes("UTF-8"));
+                            }
+                            // 其他情况直接发送数据
+                            else {
+                                encodedData = Base64.getEncoder().encodeToString(data.getBytes("UTF-8"));
+                            }
+                            
                             session.sendMessage(new TextMessage(encodedData));
                         } catch (IOException e) {
                             System.err.println("发送WebSocket消息失败: " + e.getMessage());
@@ -71,6 +102,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                     },
                     () -> {
                         try {
+                            System.out.println("Ollama响应完成");
                             String doneMsg = "[DONE]";
                             String encodedDoneMsg = Base64.getEncoder().encodeToString(doneMsg.getBytes("UTF-8"));
                             session.sendMessage(new TextMessage(encodedDoneMsg));
@@ -81,6 +113,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             );
         } catch (Exception e) {
             System.err.println("处理WebSocket消息时出错: " + e.getMessage());
+            e.printStackTrace();
             try {
                 String errorMsg = "处理您的请求时出现错误: " + e.getMessage();
                 String encodedErrorMsg = Base64.getEncoder().encodeToString(errorMsg.getBytes("UTF-8"));

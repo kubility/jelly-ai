@@ -10,14 +10,14 @@ import com.jelly.jellyai.message.WebSocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebsocketConfig implements WebSocketConfigurer {
-    
+
     @Autowired
     private WebSocketHandler webSocketHandler;
-    
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         // 注册WebSocket处理器
-        registry.addHandler(webSocketHandler, "/ws/chat")
+        registry.addHandler(webSocketHandler, "/ws/ai/chat","/ws/chat")
                 .setAllowedOrigins("*"); // 允许所有来源
     }
 }

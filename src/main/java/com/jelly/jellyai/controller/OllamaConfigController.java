@@ -85,6 +85,38 @@ public class OllamaConfigController {
     }
     
     /**
+     * 设置默认模型
+     */
+    @PostMapping("/set-default")
+    @Operation(summary = "设置默认模型")
+    public ResponseEntity<Map<String, String>> setDefaultModel(@RequestBody Map<String, String> payload) {
+        String defaultModel = payload.get("defaultModel");
+        if (defaultModel == null || defaultModel.isEmpty()) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "默认模型不能为空");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+        
+        // 获取最新的配置并更新默认模型
+        OllamaConfig latestConfig = ollamaConfigService.getLatestConfig();
+        if (latestConfig == null) {
+            latestConfig = new OllamaConfig();
+            latestConfig.setBaseUrl("http://192.168.83.128:30254");
+            latestConfig.setTemperature(0.7);
+            latestConfig.setTopP(0.9);
+            latestConfig.setTopK(40);
+        }
+        latestConfig.setDefaultModel(defaultModel);
+        
+        // 保存配置
+        ollamaConfigService.saveConfig(latestConfig);
+        
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "默认模型设置成功: " + defaultModel);
+        return ResponseEntity.ok(response);
+    }
+    
+    /**
      * 删除配置
      */
     @DeleteMapping("/{id}")
