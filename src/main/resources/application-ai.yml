@@ -1,0 +1,20 @@
+spring:
+    ai:
+        # ollama
+        ollama:
+            base-url: http://192.168.1.105:11434
+            chat:
+                options:
+                    # model: qwen3-vl:2b
+                    model: qwen3:0.6b
+            embedding:
+                model: qwen3-embedding:0.6b
+        # 阿里百炼
+        dashscope:
+            api-key: ${DASHSCOPE_API_KEY}
+        chat:
+            memory:
+                repository:
+                    jdbc:
+                        initialize-schema: always
+                        schema: classpath:db/chat-memory.sql
