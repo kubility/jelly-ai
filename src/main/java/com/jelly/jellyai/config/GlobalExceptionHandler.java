@@ -1,5 +1,6 @@
 package com.jelly.jellyai.config;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
@@ -11,11 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
+@Hidden
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    
+
     /**
      * 处理异步请求超时异常
      */
@@ -24,7 +26,7 @@ public class GlobalExceptionHandler {
         logger.warn("异步请求超时: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("请求处理超时");
     }
-    
+
     /**
      * 处理媒体类型不可接受异常
      */
@@ -33,7 +35,7 @@ public class GlobalExceptionHandler {
         logger.warn("不支持的媒体类型: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("不支持的媒体类型");
     }
-    
+
     /**
      * 处理静态资源未找到异常
      */
@@ -45,11 +47,11 @@ public class GlobalExceptionHandler {
             logger.debug("忽略对 {} 的请求，该路径通常由浏览器或开发工具自动请求", requestPath);
             return ResponseEntity.notFound().build();
         }
-        
+
         logger.warn("静态资源未找到: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("请求的资源不存在");
     }
-    
+
     /**
      * 处理通用异常
      */

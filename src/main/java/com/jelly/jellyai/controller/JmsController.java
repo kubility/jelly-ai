@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Tag(name = "Jms")
+@Tag(name = "Jms相关")
 public class JmsController {
 
     @Value("${spring.activemq.queue_ack}")
@@ -52,7 +52,7 @@ public class JmsController {
         pushService.sendQueue(jmsEntity);
         return "success";
     }
-    
+
     @PostMapping("/queue_retry")
     @Operation(summary = "queue_retry")
     public String queueRetry(@RequestBody JmsEntity jmsEntity) {

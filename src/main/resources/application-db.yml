@@ -1,0 +1,29 @@
+spring:
+    datasource:
+        dynamic:
+            enable: true
+            primary: master
+            strict: false
+            datasource:
+                master:
+                    username: ai
+                    password: WeaFDXnGCna5S8yi
+                    url: jdbc:mysql://192.168.2.200:3306/ai?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowLoadLocalInfile=true&allowUrlInLocalInfile=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublic
+                    driver-class-name: com.mysql.cj.jdbc.Driver
+                    hikari:
+                      connection-timeout: 30000
+                      idle-timeout: 60000
+                      max-lifetime: 1800000
+                      maximum-pool-size: 10
+                slave:
+                    url: jdbc:h2:file:./data/testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+                    driver-class-name: org.h2.Driver
+                    username: sa
+                    password:
+
+    data:
+        redis:
+            host: 192.168.2.200
+            password: QglExAH5TSeAK7V3
+            port: 6379
+            database: 0

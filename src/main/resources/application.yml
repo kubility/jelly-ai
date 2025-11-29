@@ -1,14 +1,7 @@
 spring:
     application:
         name: jelly-ai
-    ai:
-        ollama:
-            base-url: http://192.168.83.128:30254
-            chat:
-                options:
-                    model: deepseek-r1:1.5b
-        dashscope:
-            api-key: sk-88e14d3902c14090a4472f895bd07aeb
+
     freemarker:
         allow-request-override: false
         allow-session-override: false
@@ -22,6 +15,8 @@ spring:
         template-loader-path: classpath:/templates/
     config:
         import:
+            - optional:classpath:application-ai.yml
+            - optional:classpath:application-db.yml
             - optional:classpath:application-knife4j.yml
             - optional:classpath:application-activemq.yml
     # 热启动配置
@@ -33,22 +28,12 @@ spring:
     mvc:
         async:
             request-timeout: 120000
-    # 数据库配置
-    datasource:
-        url: jdbc:h2:file:./data/testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
-        driver-class-name: org.h2.Driver
-        username: sa
-        password: 
-    jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        hibernate:
-            ddl-auto: update
-        show-sql: true
 logging:
     level:
         root: info
         web: info
         sql: info
+        org.springframework.ai.chat.client.advisor: debug
     file:
         name: /logs/${spring.application.name}/jelly-ai.log
     logback:
@@ -69,4 +54,11 @@ ai:
 server:
     servlet:
         session:
-            timeout: 30s
+            timeout: 100s
+        encoding:
+            charset: utf-8
+            force: true
+            enabled: true
+    tomcat:
+        connection-timeout: 200000
+        keep-alive-timeout: 600000
